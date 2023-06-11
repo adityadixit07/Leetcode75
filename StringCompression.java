@@ -20,7 +20,7 @@ public class StringCompression {
             else{
                 sb.append(current);
                 sb.append(count);
-                
+
                 chars[index++]=current;
                 if(count>1){
                     String str=String.valueOf(count);
