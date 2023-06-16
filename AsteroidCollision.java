@@ -11,25 +11,21 @@ public class AsteroidCollision {
 
     public static int[] asteroidsRemaining(int[] arr) {
         Stack<Integer> st = new Stack<>();
-        st.push(arr[0]);
-        for (int i = 1; i < arr.length; i++) {
-            int a = st.peek();
-            if ((arr[i] >= 0 && a >= 0) || (arr[i] < 0 && a < 0)) {
+        for (int i = 0; i < arr.length; i++) {
+            int a = arr[i];
+            if (st.isEmpty() || a > 0) {
                 st.push(arr[i]);
             }
             // asteroid collison conditon
-            else if ((arr[i] >= 0 && a < 0) || (arr[i] < 0 && a >= 0)) {
-                // if 10 -5 then only 5 will destroy if both of same weight (10,-10) then both
-                // will destroy
-                // st.pop();
-                if (arr[i] == -a) {
+            else {
+                while (!st.isEmpty() && st.peek() > 0 && st.peek() < -a) {
                     st.pop();
+                }
 
-                    if (arr[i] < 0 && a >= 0) {
-                        // nothing done
-                        continue;
-                    }
-
+                if (st.isEmpty() || st.peek() < 0) {
+                    st.push(a);
+                } else if (st.peek() == -a) {
+                    st.pop();
                 }
             }
         }
